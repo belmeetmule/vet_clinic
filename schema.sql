@@ -64,3 +64,6 @@ ALTER TABLE owners ADD COLUMN email VARCHAR(120);
 
 -- Create index to increase performance speed
 CREATE INDEX animal_id_desc ON visits(animal_id DESC);
+
+CREATE INDEX vets_id_desc ON visits(vets_id DESC);
+CREATE INDEX owner_email_desc ON owners(email DESC);
