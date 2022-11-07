@@ -62,3 +62,5 @@ CREATE TABLE visits (
 /*Day-1*/
 ALTER TABLE owners ADD COLUMN email VARCHAR(120);
 
+-- Create index to increase performance speed
+CREATE INDEX animal_id_desc ON visits(animal_id DESC);
