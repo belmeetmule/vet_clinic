@@ -136,3 +136,54 @@ JOIN owners o ON a.owner_id = o.id
 GROUP BY o.full_name 
 ORDER BY "Number of Animals" 
 DESC LIMIT 1;
+
+/*day-4*/
+--queries
+
+SELECT a.name AS "Animal", vi.visit_date AS "Date Last visited" 
+FROM animals a 
+JOIN visits vi ON vi.animals_id = a.id JOIN vets ve ON ve.id = vi.vets_id 
+WHERE ve.name = 'William Tatcher' 
+ORDER BY visit_date 
+DESC LIMIT 1;
+
+SELECT COUNT(DISTINCT(a.name)) AS "Count of Animals", ve.name AS "Vet Name" 
+FROM animals a 
+JOIN visits vi ON vi.animals_id = a.id JOIN vets ve ON ve.id = vi.vets_id 
+WHERE ve.name = 'Stephanie Mendez' 
+GROUP BY "Vet Name";
+
+SELECT ve.name AS "Vet Name", s.name AS "Specialization" 
+FROM vets ve 
+LEFT JOIN specializations sp ON sp.vets_id = ve.id LEFT JOIN species s ON s.id = sp.species_id;
+
+SELECT a.name AS "Visited Animals", vi.visit_date AS "Date visited" 
+FROM animals a 
+JOIN visits vi ON vi.animals_id = a.id JOIN vets ve ON ve.id = vi.vets_id 
+WHERE ve.name = 'Stephanie Mendez' AND visit_date BETWEEN DATE '2020-04-01' AND '2020-08-30';
+
+SELECT a.name AS "Animal", COUNT(vi.animals_id) AS "Count of visits" 
+FROM animals a 
+JOIN visits vi ON vi.animals_id = a.id 
+GROUP BY a.name 
+ORDER BY "Count of visits" DESC LIMIT 1;
+
+SELECT a.name AS "Animal", ve.name AS "Vet Name", vi.visit_date AS "Date of Visit" 
+FROM animals a 
+JOIN visits vi ON vi.animals_id = a.id JOIN vets ve ON ve.id = vi.vets_id 
+WHERE ve.name = 'Maisy Smith' ORDER BY visit_date LIMIT 1;
+
+SELECT a.name AS "Animal", s.name AS "Species", date_of_birth, escape_attempts, neutered, weight_kg, ve.name AS "Vet Name", spc.name AS "Specialization", age AS "Vets' Age", date_of_graduation, vi.visit_date
+FROM animals a 
+JOIN visits vi ON vi.animals_id = a.id JOIN vets ve ON ve.id = vi.vets_id JOIN species s ON s.id = a.species_id JOIN specializations sp ON sp.vets_id = ve.id JOIN species spc ON spc.id = sp.species_id 
+ORDER BY visit_date DESC LIMIT 1; 
+
+SELECT COUNT(vi.animals_id) AS "Visits count by non specialist" 
+FROM animals a JOIN visits vi ON vi.animals_id = a.id JOIN vets ve ON ve.id = vi.vets_id JOIN species s ON s.id = a.species_id JOIN specializations sp ON sp.vets_id = ve.id JOIN species spc ON spc.id = sp.species_id 
+WHERE s.name <> spc.name;
+
+/*Block-2*/
+/*Day-1*/
+explain analyze SELECT * FROM owners where email = 'owner_18327@mail.com';
+explain analyze SELECT * FROM visits where vet_id = 2;
+explain analyze SELECT * FROM owners where email = 'owner_18327@mail.com';
